@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -19,18 +20,29 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getById(Long id) {
-
         return productRepo.findById(id).get();
     }
 
     @Override
     public List<Product> findAllByProductName(String name) {
-        return productRepo.findAllByProductName(name);
+        return productRepo.findAll().stream()
+                .filter(p -> p.getProductName().contains(name))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Product> findAllBySalary(Integer salary) {
         return productRepo.findAllBySalary(salary);
+    }
+
+    @Override
+    public List<Product> findAllBySalaryAsc() {
+        return productRepo.findAllBySalaryAsc();
+    }
+
+    @Override
+    public List<Product> findAllByProductNameAsc() {
+        return productRepo.findAllByProductNameAsc();
     }
 
 

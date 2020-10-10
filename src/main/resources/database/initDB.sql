@@ -1,5 +1,5 @@
 create table article (
-        id int8 not null,
+        id serial,
         article_name varchar(255),
         content varchar(3000),
         date timestamp,
@@ -8,8 +8,8 @@ create table article (
 );
 
 
- /*   create table product (
-        id int8 not null,
+   create table product (
+        id serial,
         description varchar(2000),
         product_name varchar(255),
         salary int4 not null,
@@ -48,4 +48,4 @@ INSERT INTO product VALUES (3, 'description', 'PC', 10000);
 
 INSERT INTO article VALUES (1, 'About Android N1', 'here is the content', '2020-10-08 20:00:00', 2);
 INSERT INTO article VALUES (2, 'About Android N2', 'here is the content', '2020-10-08 21:11:11', 2);
-INSERT INTO article VALUES (3, 'About PC N1', 'here is the content', '2020-10-08 22:22:33', 3);*/
+INSERT INTO article VALUES (3, 'About PC N1', 'here is the content', '2020-10-08 22:22:33', 3);

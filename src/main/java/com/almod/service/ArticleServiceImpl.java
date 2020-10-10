@@ -29,6 +29,26 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<Article> findAllByArticleNameAsc() {
+        return articleRepo.findAllByArticleNameAsc();
+    }
+
+    @Override
+    public List<Article> findAllByDateAsc() {
+        return articleRepo.findAllByDateAsc();
+    }
+
+    @Override
+    public List<Article> findAllByProductProductName(String name) {
+        return articleRepo.findAllByProductProductName(name);
+    }
+
+    @Override
+    public List<Article> findAllByArticleName(String name) {
+        return articleRepo.findAllByArticleName(name);
+    }
+
+    @Override
     public void save(Article article) {
         articleRepo.save(article);
     }
