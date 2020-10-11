@@ -10,7 +10,7 @@ import java.util.List;
  * Repository interface for {@link Product}
  */
 public interface ProductRepo extends JpaRepository<Product, Long> {
-    List<Product> findAllByProductName(String name);
+    //List<Product> findAllByProductName(String name);
 
     List<Product> findAllBySalary(Integer salary);
 

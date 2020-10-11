@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -40,12 +41,16 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<Article> findAllByProductProductName(String name) {
-        return articleRepo.findAllByProductProductName(name);
+        return articleRepo.findAll().stream()
+                .filter(a -> a.getProduct().getProductName().contains(name))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Article> findAllByArticleName(String name) {
-        return articleRepo.findAllByArticleName(name);
+        return articleRepo.findAll().stream()
+                .filter(a -> a.getArticleName().contains(name))
+                .collect(Collectors.toList());
     }
 
     @Override

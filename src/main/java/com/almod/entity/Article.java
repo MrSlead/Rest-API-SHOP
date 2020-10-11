@@ -11,12 +11,12 @@ public class Article implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(columnDefinition = "article_name")
+    @Column(name = "article_name")
     private String articleName;
     private String content;
     private Date date;
 
-    @ManyToOne
+    @ManyToOne()
     private Product product;
 
     public long getId() {

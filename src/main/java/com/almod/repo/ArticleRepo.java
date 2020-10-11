@@ -12,8 +12,8 @@ import java.util.Set;
  */
 public interface ArticleRepo extends JpaRepository<Article, Long> {
     Set<Article> findAllByProductId(Long id);
-    List<Article> findAllByProductProductName(String name);
-    List<Article> findAllByArticleName(String name);
+    /*List<Article> findAllByProductProductName(String name);
+    List<Article> findAllByArticleName(String name);*/
 
     @Query(value = "SELECT * FROM article ORDER BY article_name", nativeQuery = true)
     List<Article> findAllByArticleNameAsc();

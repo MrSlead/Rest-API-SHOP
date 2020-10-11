@@ -2,14 +2,12 @@ package com.almod.rest;
 
 import com.almod.entity.Article;
 import com.almod.entity.Product;
-import com.almod.repo.ProductRepo;
 import com.almod.service.ArticleService;
 import com.almod.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

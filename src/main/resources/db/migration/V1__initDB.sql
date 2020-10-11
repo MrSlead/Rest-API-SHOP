@@ -1,24 +1,27 @@
-create table article (
-                         id serial,
-                         article_name varchar(255),
-                         content varchar(3000),
-                         date timestamp,
-                         product_id int8,
-                         primary key (id)
+create table article
+(
+    id           serial,
+    article_name varchar(255),
+    content      varchar(3000),
+    date         timestamp,
+    product_id   int8,
+    primary key (id)
 );
 
 
-create table product (
-                         id serial,
-                         description varchar(2000),
-                         product_name varchar(255),
-                         salary int4 not null,
-                         primary key (id)
+create table product
+(
+    id           serial,
+    description  varchar(2000),
+    product_name varchar(255),
+    salary       int4 not null,
+    primary key (id)
 );
 
-create table product_articles (
-                                  product_id int8 not null,
-                                  articles_id int8 not null
+create table product_articles
+(
+    product_id  int8 not null,
+    articles_id int8 not null
 );
 
 

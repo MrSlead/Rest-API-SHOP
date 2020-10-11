@@ -11,13 +11,13 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(columnDefinition = "product_name")
+    @Column(name = "product_name")
     private String productName;
 
     private String description;
     private int salary;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Article> articles;
 
     public long getId() {
