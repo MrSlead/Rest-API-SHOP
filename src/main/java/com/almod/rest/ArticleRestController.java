@@ -2,6 +2,7 @@ package com.almod.rest;
 
 import com.almod.entity.Article;
 import com.almod.service.ArticleService;
+import com.almod.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,12 @@ import java.util.List;
 @RequestMapping("/api/article")
 public class ArticleRestController {
     private ArticleService articleService;
+    private ProductService productService;
+
+    @Autowired
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
+    }
 
     @Autowired
     public void setArticleService(ArticleService articleService) {
@@ -85,14 +92,15 @@ public class ArticleRestController {
 
 
     /*-------------- SAVE ----------------*/
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<Article> saveArticle(@RequestBody Article article){
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+    public ResponseEntity<Article> saveArticle(@RequestBody Article article, @PathVariable("id") Long id){
         HttpHeaders headers = new HttpHeaders();
 
         if(article == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
+        article.setProduct(productService.getById(id));
         this.articleService.save(article);
 
         return new ResponseEntity<>(article, headers, HttpStatus.CREATED);
@@ -101,19 +109,25 @@ public class ArticleRestController {
 
     /*-------------- UDPATE ----------------*/
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Article> updateArticle(@RequestBody Article article, @PathVariable("id") Long id){
+    public ResponseEntity<Article> updateArticle(@RequestBody Article article,
+                                                 @PathVariable("id") Long id,
+                                                 @RequestParam(name = "productId", required = false) Long newProductById){
         HttpHeaders headers = new HttpHeaders();
 
         if(id == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
+
         Article oldArticle = this.articleService.getById(id);
 
         oldArticle.setArticleName(article.getArticleName());
         oldArticle.setContent(article.getContent());
         oldArticle.setDate(article.getDate());
-        oldArticle.setProduct(article.getProduct());
+
+        if(newProductById != null) {
+            oldArticle.setProduct(productService.getById(newProductById));
+        }
 
         this.articleService.save(oldArticle);
 

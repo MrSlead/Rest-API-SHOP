@@ -17,7 +17,7 @@ public class Product implements Serializable {
     private String description;
     private int salary;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Article> articles;
 
     public long getId() {

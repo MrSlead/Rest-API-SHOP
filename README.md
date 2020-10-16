@@ -13,15 +13,21 @@
 
 <b>Получение всех статей по id продукта: (GET) http://localhost:8080/api/product/{id}</b><br><br>
 
-<b>Сохранение продукта (В тело подаём Product в JSON формате): (POST) http://localhost:8080/api/product/<br>
+<b>Сохранение продукта (В тело подаём Product в JSON формате):
+(POST) http://localhost:8080/api/product/<br>
 Пример:  {<br>
                  "id": 100,<br>
                  "productName": "Apple mobile",<br>
                  "description": "description",<br>
-                 "salary": 7500,<br>
-                 "articles": []<br>
+                 "salary": 7500<br>
              }</b><br><br>
-<b>Обновление продукта (В тело подаём Product в JSON формате): (PUT) http://localhost:8080/api/product/{id}<br><br>
+             <b>Если нужно указать статьи для продукта, то подаём параметр 'articles' с id статей через пробел, где многоточие означает "и так далее".<br></b>
+<b>(POST) http://localhost:8080/api/product/?articles={id id id...}<br><b><br><br>
+
+Обновление продукта<br>
+По аналогии с сохранением продукта, за исключением: следует POST заменить на PUT. <br>
+<b>(В тело подаём Product в JSON формате): (PUT) http://localhost:8080/api/product/{id}<br>
+<b>(PUT) http://localhost:8080/api/product/?articles={id id id...}<br><br></b>
 
 <b>Удаление продукта: (DELETE) http://localhost:8080/api/product/{id}<br><br>
 
@@ -39,21 +45,17 @@
 
 <b>Получение определённой статьи по id: (GET) http://localhost:8080/api/article/{id}</b><br><br>
 
-<b>Сохранение статьи (В тело подаём Article в JSON формате): (POST) http://localhost:8080/api/article/<br>
+<b>Сохранение статьи (В тело подаём Article в JSON формате, в URI id продукта): (POST) http://localhost:8080/api/article/{id}<br>
 Пример:  {<br>
              "id": 4,<br>
              "articleName": "About Laptop N1",<br>
              "content": "here is the content",<br>
              "date": "2020-10-08T14:22:33.000+00:00",<br>
-             "product": {<br>
-                 "id": 3,<br>
-                 "productName": "PC",<br>
-                 "description": "description",<br>
-                 "salary": 10000,<br>
-                 "articles": []<br>
-             }<br>
          }</b><br><br>
-<b>Обновление статьи (В тело подаём Article в JSON формате): (PUT) http://localhost:8080/api/article/{id}<br><br>
+<b>Обновление статьи (В тело подаём Article в JSON формате):<br>
+(PUT) http://localhost:8080/api/article/{id}<br>
+Если нужно изменить продукт в статье, то передаём id нового продукта в параметре 'productId':<br>
+(PUT) http://localhost:8080/api/article/{id}?productId={idNewProduct}<br><br>
 
 <b>Удаление статьи: (DELETE) http://localhost:8080/api/article/{id}<br><br>
 

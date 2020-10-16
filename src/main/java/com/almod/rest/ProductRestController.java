@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/api/product")
@@ -95,11 +97,19 @@ public class ProductRestController {
 
     /*-------------- SAVE ----------------*/
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<Product> saveProduct(@RequestBody Product product){
+    public ResponseEntity<Product> saveProduct(@RequestBody Product product,
+                                               @RequestParam(required = false) String articles)
+    {
         HttpHeaders headers = new HttpHeaders();
 
         if(product == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        if(articles != null) {
+            Stream.of(articles.split(" "))
+                    .forEach(a ->
+                            articleService.getById(Long.parseLong(a)).setProduct(product));
         }
 
         this.productService.save(product);
@@ -110,7 +120,9 @@ public class ProductRestController {
 
     /*-------------- UDPATE ----------------*/
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Product> updateProduct(@RequestBody Product product, @PathVariable("id") Long id){
+    public ResponseEntity<Product> updateProduct(@RequestBody Product product,
+                                                 @PathVariable("id") Long id,
+                                                 @RequestParam(required = false) String articles){
         HttpHeaders headers = new HttpHeaders();
 
         if(id == null){
@@ -122,6 +134,12 @@ public class ProductRestController {
         oldProduct.setDescription(product.getDescription());
         oldProduct.setProductName(product.getProductName());
         oldProduct.setSalary(product.getSalary());
+
+        if(articles != null) {
+            Stream.of(articles.split(" "))
+                    .forEach(a ->
+                            articleService.getById(Long.parseLong(a)).setProduct(oldProduct));
+        }
 
         this.productService.save(oldProduct);
 
